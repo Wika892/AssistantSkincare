@@ -1,3 +1,5 @@
-<?php
+</main>
 
-?>
+</body>
+
+</html>

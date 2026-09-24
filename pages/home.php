@@ -1,0 +1,1 @@
+<h1>Bienvenue sur Assistant Skincare</h1>

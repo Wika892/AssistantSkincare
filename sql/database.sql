@@ -63,7 +63,9 @@ GO
 -- Table des utilisateurs du site.
 CREATE TABLE users (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    nom VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
 GO
