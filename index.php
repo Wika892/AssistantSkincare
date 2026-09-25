@@ -11,6 +11,30 @@ $routes = [
     'title' => 'Accueil'
   ],
 
+  // gestion ingredients
+  'ingredients' => [
+    'file' => 'pages/ingredients/read.php',
+    'title' => 'ingredients',
+  ],
+
+'ingredient-details' => [
+  'file' => 'pages/ingredients/details.php',
+  'title' => 'Détails de l\'ingrédient',
+],
+'ingredient-create' => [
+    'file' => 'pages/ingredients/create.php',
+    'title' => 'Ajouter un ingrédient',
+],
+
+'ingredient-update' => [
+    'file' => 'pages/ingredients/update.php',
+    'title' => 'Modifier un ingrédient',
+],
+
+'ingredient-delete' => [
+    'file' => 'pages/ingredients/delete.php',
+    'title' => 'Supprimer un ingrédient',
+],
 
 
   /**
