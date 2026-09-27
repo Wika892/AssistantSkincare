@@ -11,6 +11,31 @@ $routes = [
     'title' => 'Accueil'
   ],
 
+  // Gestion questionnaire
+
+  'questionnaire' => [
+    'file' => 'pages/questionnaire.php',
+    'title' => 'Questionnaire',
+],
+
+'types-peau' => [
+    'file' => 'pages/types_peau/read.php',
+    'title' => 'Types de peau',
+],
+
+'type-peau-details' => [
+    'file' => 'pages/types_peau/details.php',
+    'title' => 'Détails du type de peau',
+],
+
+// gestion resultat
+
+'resultat' => [
+    'file' => 'pages/resultat.php',
+    'title' => 'Résultat',
+],
+
+
   // gestion ingredients
   'ingredients' => [
     'file' => 'pages/ingredients/read.php',
