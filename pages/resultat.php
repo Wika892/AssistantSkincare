@@ -6,67 +6,89 @@ $q3 = $_POST['q3'] ?? '';
 $q4 = $_POST['q4'] ?? '';
 $q5 = $_POST['q5'] ?? '';
 $q6 = $_POST['q6'] ?? '';
-
-if (
-    $q1 === '' ||
-    $q2 === '' ||
-    $q3 === '' ||
-    $q4 === '' ||
-    $q5 === '' ||
-    $q6 === ''
-) {
-    header("Location: index.php?page=questionnaire&erreur=1");
-    exit;
-}
+$q7 = $_POST['q7'] ?? '';
+$q8 = $_POST['q8'] ?? '';
+$q9 = $_POST['q9'] ?? '';
+$q10 = $_POST['q10'] ?? '';
+$q11 = $_POST['q11'] ?? '';
+$q12 = $_POST['q12'] ?? '';
+$q13 = $_POST['q13'] ?? '';
+$q14 = $_POST['q14'] ?? '';
 
 $points = [
     'seche' => 0,
     'grasse' => 0,
     'mixte' => 0,
-    'normale' => 0
+    'normale' => 0,
+    'mature' => 0,
+    'sensible' => 0,
+    'acneique' => 0
 ];
 
 if ($q1 === 'oui') {
     $points['seche']++;
-} else {
-    $points['normale']++;
+    $points['sensible']++;
 }
 
 if ($q2 === 'oui') {
-    $points['grasse']++;
-} else {
     $points['seche']++;
 }
 
-if ($q3 === 'partout') {
+if ($q3 === 'oui') {
     $points['grasse']++;
-} elseif ($q3 === 'zone_t') {
-    $points['mixte']++;
-} else {
-    $points['normale']++;
 }
 
 if ($q4 === 'oui') {
-    $points['mixte']++;
-} else {
-    $points['normale']++;
+    $points['grasse']++;
+    $points['acneique']++;
 }
 
 if ($q5 === 'oui') {
     $points['grasse']++;
-} else {
     $points['mixte']++;
 }
 
 if ($q6 === 'oui') {
-    $points['normale']++;
-} else {
     $points['seche']++;
+    $points['mixte']++;
 }
 
-$type_resultat = array_search(max($points), $points);
+if ($q7 === 'oui') {
+    $points['normale']++;
+}
 
-$type_peau_id = null;
+if ($q8 === 'oui') {
+    $points['normale']++;
+    $points['mixte']++;
+}
+
+if ($q9 === 'oui') {
+    $points['mature']+=3;
+}
+
+if ($q10 === 'oui') {
+    $points['mature']+=2;
+}
+
+if ($q11 === 'oui') {
+    $points['sensible']+=2;
+}
+
+if ($q12 === 'oui') {
+    $points['sensible']+=2;
+}
+
+if ($q13 === 'oui') {
+    $points['acneique']+=2;
+    $points['grasse']++;
+}
+
+if ($q14 === 'oui') {
+    $points['acneique']+2;
+}
+
+$max_points = max($points);
+$type_resultat = array_search($max_points, $points);
 
 if ($type_resultat === 'seche') {
     $nom_type = 'Sèche';
@@ -74,8 +96,14 @@ if ($type_resultat === 'seche') {
     $nom_type = 'Grasse';
 } elseif ($type_resultat === 'mixte') {
     $nom_type = 'Mixte';
-} else {
+} elseif ($type_resultat === 'normale') {
     $nom_type = 'Normale';
+} elseif ($type_resultat === 'mature') {
+    $nom_type = 'Mature';
+} elseif ($type_resultat === 'sensible') {
+    $nom_type = 'Sensible';
+} else {
+    $nom_type = 'Acnéique';
 }
 
 $sql = "SELECT id
@@ -89,9 +117,16 @@ $type_peau = $statement->fetch();
 
 $type_peau_id = $type_peau['id'];
 
-$sql = "SELECT id, nom, categorie, bienfaits
+$sql = "SELECT 
+            ingredients.id,
+            ingredients.nom,
+            ingredients.categorie,
+            ingredients.bienfaits
         FROM ingredients
-        WHERE type_peau_id = ?";
+        INNER JOIN ingredients_types_peau
+            ON ingredients.id = ingredients_types_peau.ingredient_id
+        WHERE ingredients_types_peau.type_peau_id = ?
+        ORDER BY ingredients.nom";
 
 $statement = $pdo->prepare($sql);
 $statement->execute([$type_peau_id]);
@@ -104,23 +139,38 @@ $ingredients = $statement->fetchAll();
 
 <?php if ($type_resultat === 'seche') : ?>
 
-    <h2>Peau sèche</h2>
-    <p>Ta peau a tendance à manquer d'hydratation et peut donner une sensation de tiraillement.</p>
+<h2>Peau sèche</h2>
+<p>Ta peau a tendance à manquer d'hydratation et peut donner une sensation de tiraillement.</p>
 
 <?php elseif ($type_resultat === 'grasse') : ?>
 
-    <h2>Peau grasse</h2>
-    <p>Ta peau produit davantage de sébum et peut avoir tendance à briller.</p>
+<h2>Peau grasse</h2>
+<p>Ta peau peut avoir tendance à briller et à présenter des imperfections.</p>
 
 <?php elseif ($type_resultat === 'mixte') : ?>
 
-    <h2>Peau mixte</h2>
-    <p>Ta zone T peut être plus grasse tandis que tes joues sont plus sèches.</p>
+<h2>Peau mixte</h2>
+<p>Certaines parties de ton visage sont plus grasses tandis que d'autres sont plus sèches.</p>
 
 <?php elseif ($type_resultat === 'normale') : ?>
 
-    <h2>Peau normale</h2>
-    <p>Ta peau semble équilibrée et confortable au quotidien.</p>
+<h2>Peau normale</h2>
+<p>Ta peau semble équilibrée et confortable au quotidien.</p>
+
+<?php elseif ($type_resultat === 'mature') : ?>
+
+<h2>Peau mature</h2>
+<p>Ta peau peut présenter de petites lignes et être moins souple qu'avant.</p>
+
+<?php elseif ($type_resultat === 'sensible') : ?>
+
+<h2>Peau sensible</h2>
+<p>Ta peau peut devenir facilement rouge ou inconfortable et réagir à certains produits.</p>
+
+<?php elseif ($type_resultat === 'acneique') : ?>
+
+<h2>Peau acnéique</h2>
+<p>Ta peau peut présenter régulièrement des boutons, des points noirs ou de petites imperfections.</p>
 
 <?php endif ?>
 
