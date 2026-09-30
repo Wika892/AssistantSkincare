@@ -148,7 +148,7 @@ CREATE TABLE ingredients (
     bienfaits VARCHAR(500) NOT NULL,
 );
 GO
-
+-- creation table liaison 
 CREATE TABLE ingredients_types_peau (
     ingredient_id INT NOT NULL,
     type_peau_id INT NOT NULL,
@@ -156,9 +156,10 @@ CREATE TABLE ingredients_types_peau (
     PRIMARY KEY (ingredient_id, type_peau_id),
 
     CONSTRAINT FK_ingredients_types_peau_ingredient
+    -- ingredient correspond a la table ingredient
         FOREIGN KEY (ingredient_id)
         REFERENCES ingredients(id),
-
+    --type peau correspond a la table type peau
     CONSTRAINT FK_ingredients_types_peau_type_peau
         FOREIGN KEY (type_peau_id)
         REFERENCES types_peau(id)

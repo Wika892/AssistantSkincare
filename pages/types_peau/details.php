@@ -10,11 +10,13 @@ $statement = $pdo->prepare($sql);
 $statement->execute([$id]);
 
 $type_peau = $statement->fetch();
-
+// donne les ingredients associes au type de peau
 $sql = "SELECT i.id, i.nom
         FROM ingredients i
+        -- relie t igredient a t ingredient type peau
         INNER JOIN ingredients_types_peau itp
-            ON itp.ingredient_id = i.id
+            ON itp.ingredient_id = i.id -- relie grace a id
+        --selectionne les ingredient au type de type de peau
         WHERE itp.type_peau_id = ?
         ORDER BY i.nom";
 

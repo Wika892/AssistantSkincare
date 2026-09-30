@@ -21,6 +21,7 @@ $ingredients = $statement->fetchAll();
 
 <p><?= count($ingredients) ?> ingrédient(s)</p>
 
+
 <?php if ($_SESSION['user']['role'] === 'admin') : ?>
     <a href="index.php?page=ingredient-create" class="ajouter-ingredient">
         Ajouter un ingrédient
