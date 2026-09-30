@@ -66,7 +66,17 @@ CREATE TABLE users (
     prenom VARCHAR(100) NOT NULL,
     nom VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'user'
+);
+
+INSERT INTO users (prenom, nom, email, password, role)
+VALUES (
+    'Admin',
+    'AssistantSkincare',
+    'admin@gmail.com',
+    '$2y$12$2LmzmgJil7gdpHKcKS46M.VM6H861DVgqLvjUhqBMM1iVwYMF3pqi',
+    'admin'
 );
 GO
 

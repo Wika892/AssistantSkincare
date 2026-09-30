@@ -65,8 +65,8 @@ if ($values['nom'] === '') {
       
       $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-      $sql = "INSERT INTO users (prenom, nom, email, password)
-              VALUES (?, ?, ?, ?)";
+      $sql = "INSERT INTO users (prenom, nom, email, password, role)
+              VALUES (?, ?, ?, ?,'user')";
 
       $statement = $pdo->prepare($sql);
       $statement->execute([
@@ -100,7 +100,7 @@ if ($values['nom'] === '') {
 
 <h1>S'inscrire</h1>
 
-<form method="post">
+<form class="form-inscription"  method="post">
 
 
 <div>

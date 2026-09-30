@@ -1,7 +1,7 @@
 <?php
 
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php?page=login");
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+    header("Location: index.php?page=ingredients");
     exit;
 }
 
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = trim($_POST['nom'] ?? '');
     $categorie = trim($_POST['categorie'] ?? '');
     $bienfaits = trim($_POST['bienfaits'] ?? '');
-    $type_peau_id = $_POST['type_peau_id'] ?? '';
+    $type_peau_id = $_POST['type_peau_id'] ?? [];
 
     // Validation
     if ($nom === '') {
@@ -27,23 +27,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['bienfaits'] = "Les bienfaits sont obligatoires.";
     }
 
-    if ($type_peau_id === '') {
+    if (empty($type_peau_id)) {
         $errors['type_peau_id'] = "Le type de peau est obligatoire.";
     }
 
     if (!$errors) {
 
-        $sql = "INSERT INTO ingredients (nom, categorie, bienfaits, type_peau_id)
-                VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO ingredients (nom, categorie, bienfaits)
+                VALUES (?, ?, ?)";
 
         $statement = $pdo->prepare($sql);
 
         $statement->execute([
             $nom,
             $categorie,
-            $bienfaits,
-            $type_peau_id
+            $bienfaits
         ]);
+
+        $newIngredientId = $pdo->lastInsertId();
+
+        foreach ($type_peau_id as $type_id) {
+
+            $sql = "INSERT INTO ingredients_types_peau
+                    (ingredient_id, type_peau_id)
+                    VALUES (?, ?)";
+
+            $statement = $pdo->prepare($sql);
+
+            $statement->execute([
+                $newIngredientId,
+                $type_id
+            ]);
+        }
+
+        header("Location: index.php?page=ingredient-details&id=" . $newIngredientId);
+        exit;
     }
 }
 
@@ -51,10 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <h1>Ajouter un ingrédient</h1>
 
-<form method="post">
+<form method="post" class="form-modifier">
 
     <div>
         <label for="nom">Nom :</label>
+
         <input type="text" name="nom" id="nom">
 
         <?php if (isset($errors['nom'])) : ?>
@@ -64,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div>
         <label for="categorie">Catégorie :</label>
+
         <input type="text" name="categorie" id="categorie">
 
         <?php if (isset($errors['categorie'])) : ?>
@@ -73,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div>
         <label for="bienfaits">Bienfaits :</label>
+
         <textarea name="bienfaits" id="bienfaits"></textarea>
 
         <?php if (isset($errors['bienfaits'])) : ?>
@@ -80,23 +101,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif ?>
     </div>
 
-    <div>
-        <label for="type_peau_id">Type de peau :</label>
+    <div class="types-peau-checkboxes">
 
-        <select name="type_peau_id" id="type_peau_id">
+        <label>
+            <input type="checkbox" name="type_peau_id[]" value="1">
+            Sèche
+        </label>
 
-            <option value="">-- Choisir un type de peau --</option>
-            <option value="1">Sèche</option>
-            <option value="2">Grasse</option>
-            <option value="3">Mixte</option>
-            <option value="4">Normale</option>
+        <label>
+            <input type="checkbox" name="type_peau_id[]" value="2">
+            Grasse
+        </label>
 
-        </select>
+        <label>
+            <input type="checkbox" name="type_peau_id[]" value="3">
+            Mixte
+        </label>
 
-        <?php if (isset($errors['type_peau_id'])) : ?>
-            <span class="error"><?= $errors['type_peau_id'] ?></span>
-        <?php endif ?>
+        <label>
+            <input type="checkbox" name="type_peau_id[]" value="4">
+            Normale
+        </label>
+
+        <label>
+            <input type="checkbox" name="type_peau_id[]" value="5">
+            Mature
+        </label>
+
+        <label>
+            <input type="checkbox" name="type_peau_id[]" value="6">
+            Sensible
+        </label>
+
+        <label>
+            <input type="checkbox" name="type_peau_id[]" value="7">
+            Acnéique
+        </label>
+
     </div>
+
+    <?php if (isset($errors['type_peau_id'])) : ?>
+        <span class="error"><?= $errors['type_peau_id'] ?></span>
+    <?php endif ?>
+    
 
     <button>Ajouter</button>
 

@@ -24,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Vérifier si les identifiants sont corrects
   if (!$errors) {
 
-    $sql = "SELECT id, prenom, nom, email, password  FROM users WHERE email = ?";
+    $sql = "SELECT id, prenom, nom, email, password, role 
+            FROM users 
+            WHERE email = ?";
 
     $statement = $pdo->prepare($sql);
     $statement->execute([$values['email']]);
@@ -40,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'prenom' => $user['prenom'],
         'nom' => $user['nom'],
         'email' => $values['email'],
+        'role' => $user['role'],
         
       ];
 
@@ -57,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <h1>Se connecter</h1>
 
-<form method="post">
+<form class="form-connexion" method="post">
 
     <?php if(isset($errors['global'])) : ?>
       <span class="error"><?= $errors['global'] ?></span>

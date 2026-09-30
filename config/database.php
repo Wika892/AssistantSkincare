@@ -4,7 +4,7 @@
 // Information de connexion à la base de données
 
 $source = "sqlsrv";
-$host = "WAD-07\IF3";
+$host = "localhost";
 $dbname = "AssistantSkincare";
 
 $dsn = "$source:Server=$host;Database=$dbname;TrustServerCertificate=true";

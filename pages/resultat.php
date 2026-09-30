@@ -135,7 +135,7 @@ $ingredients = $statement->fetchAll();
 
 ?>
 
-<h1>Ton résultat</h1>
+<h1>🌺Ton résultat🌺</h1>
 
 <?php if ($type_resultat === 'seche') : ?>
 
@@ -174,19 +174,26 @@ $ingredients = $statement->fetchAll();
 
 <?php endif ?>
 
-<h2>Les ingrédients adaptés à ta peau</h2>
+<h2>🪷Les ingrédients adaptés à ta peau:</h2>
 
-<?php foreach ($ingredients as $ingredient) : ?>
 
-    <article>
-        <h3><?= $ingredient['nom'] ?></h3>
+<div class="cartes-ingredients">
 
-        <a href="index.php?page=ingredient-details&id=<?= $ingredient['id'] ?>">
-            Voir les détails
-        </a>
-    </article>
+    <?php foreach ($ingredients as $ingredient) : ?>
 
-<?php endforeach ?>
+        <article class="carte-ingredient">
+
+            <h3><?= $ingredient['nom'] ?></h3>
+
+            <a href="index.php?page=ingredient-details&id=<?= $ingredient['id'] ?>">
+                Voir les détails
+            </a>
+
+        </article>
+
+    <?php endforeach ?>
+
+</div>
 
 <br>
 

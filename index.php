@@ -87,6 +87,24 @@ $routes = [
 $page = $_GET['page'] ?? '';
 $route = $routes[$page] ?? null;
 
+// Pages accessibles uniquement aux utilisateurs connectés
+$pages_protegees = [
+    'questionnaire',
+    'types-peau',
+    'type-peau-details',
+    'resultat',
+    'ingredients',
+    'ingredient-details',
+    'ingredient-create',
+    'ingredient-update',
+    'ingredient-delete'
+];
+
+if (in_array($page, $pages_protegees) && !isset($_SESSION['user'])) {
+    header("Location: index.php?page=login");
+    exit;
+}
+
 if ($route === null) {
   $route = [
     'file' => 'pages/errors/not-found.php',

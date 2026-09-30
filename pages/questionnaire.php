@@ -1,4 +1,5 @@
 <?php
+
 $q1 = $_POST['q1'] ?? '';
 $q2 = $_POST['q2'] ?? '';
 $q3 = $_POST['q3'] ?? '';
@@ -93,10 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $max_points = max($points);
     $type_resultat = array_search($max_points, $points);
 }
+
 ?>
 
 
-<a href="index.php">Retour à l'accueil</a>
 
 <?php if (isset($_GET['erreur'])) : ?>
 
@@ -110,191 +111,249 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <form method="post" action="index.php?page=resultat">
 
-    <h2>1. Après avoir lavé ton visage, est-ce que ta peau tire ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q1" value="oui">
-        Oui
-    </label>
+        <h2>1. Après avoir lavé ton visage, est-ce que ta peau tire ?</h2>
 
-    <label>
-        <input type="radio" name="q1" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q1" value="oui">
+            <span>Oui</span>
+        </label>
 
+        <label>
+            <input type="radio" name="q1" value="non">
+            <span>Non</span>
+        </label>
 
-    <h2>2. Est-ce que ta peau est souvent sèche ou manque de confort ?</h2>
-
-    <label>
-        <input type="radio" name="q2" value="oui">
-        Oui
-    </label>
-
-    <label>
-        <input type="radio" name="q2" value="non">
-        Non
-    </label>
+    </div>
 
 
-    <h2>3. Est-ce que ton visage devient souvent brillant pendant la journée ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q3" value="oui">
-        Oui
-    </label>
+        <h2>2. Est-ce que ta peau est souvent sèche ou manque de confort ?</h2>
 
-    <label>
-        <input type="radio" name="q3" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q2" value="oui">
+            <span>Oui</span>
+        </label>
 
+        <label>
+            <input type="radio" name="q2" value="non">
+            <span>Non</span>
+        </label>
 
-    <h2>4. Est-ce que tu as souvent les pores visibles ou de petites imperfections ?</h2>
-
-    <label>
-        <input type="radio" name="q4" value="oui">
-        Oui
-    </label>
-
-    <label>
-        <input type="radio" name="q4" value="non">
-        Non
-    </label>
+    </div>
 
 
-    <h2>5. Est-ce que ton front et ton nez deviennent plus brillants que le reste de ton visage ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q5" value="oui">
-        Oui
-    </label>
+        <h2>3. Est-ce que ton visage devient souvent brillant pendant la journée ?</h2>
 
-    <label>
-        <input type="radio" name="q5" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q3" value="oui">
+            <span>Oui</span>
+        </label>
 
+        <label>
+            <input type="radio" name="q3" value="non">
+            <span>Non</span>
+        </label>
 
-    <h2>6. Est-ce que tes joues sont souvent plus sèches que ton front et ton nez ?</h2>
-
-    <label>
-        <input type="radio" name="q6" value="oui">
-        Oui
-    </label>
-
-    <label>
-        <input type="radio" name="q6" value="non">
-        Non
-    </label>
+    </div>
 
 
-    <h2>7. Est-ce que ta peau est généralement confortable et ne te pose pas beaucoup de problèmes ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q7" value="oui">
-        Oui
-    </label>
+        <h2>4. Est-ce que tu as souvent les pores visibles ou de petites imperfections ?</h2>
 
-    <label>
-        <input type="radio" name="q7" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q4" value="oui">
+            <span>Oui</span>
+        </label>
 
+        <label>
+            <input type="radio" name="q4" value="non">
+            <span>Non</span>
+        </label>
 
-    <h2>8. Est-ce que ta peau est rarement très sèche ou très brillante ?</h2>
-
-    <label>
-        <input type="radio" name="q8" value="oui">
-        Oui
-    </label>
-
-    <label>
-        <input type="radio" name="q8" value="non">
-        Non
-    </label>
+    </div>
 
 
-    <h2>9. Est-ce que tu remarques de petites lignes sur ton visage ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q9" value="oui">
-        Oui
-    </label>
+        <h2>5. Est-ce que ton front et ton nez deviennent plus brillants que le reste de ton visage ?</h2>
 
-    <label>
-        <input type="radio" name="q9" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q5" value="oui">
+            <span>Oui</span>
+        </label>
 
+        <label>
+            <input type="radio" name="q5" value="non">
+            <span>Non</span>
+        </label>
 
-    <h2>10. Est-ce que tu trouves que ta peau est moins souple qu'avant ?</h2>
-
-    <label>
-        <input type="radio" name="q10" value="oui">
-        Oui
-    </label>
-
-    <label>
-        <input type="radio" name="q10" value="non">
-        Non
-    </label>
+    </div>
 
 
-    <h2>11. Est-ce que ton visage devient facilement rouge ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q11" value="oui">
-        Oui
-    </label>
+        <h2>6. Est-ce que tes joues sont souvent plus sèches que ton front et ton nez ?</h2>
 
-    <label>
-        <input type="radio" name="q11" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q6" value="oui">
+            <span>Oui</span>
+        </label>
 
+        <label>
+            <input type="radio" name="q6" value="non">
+            <span>Non</span>
+        </label>
 
-    <h2>12. Est-ce que ta peau réagit facilement à certains produits ?</h2>
-
-    <label>
-        <input type="radio" name="q12" value="oui">
-        Oui
-    </label>
-
-    <label>
-        <input type="radio" name="q12" value="non">
-        Non
-    </label>
+    </div>
 
 
-    <h2>13. Est-ce que tu as souvent des boutons ou des points noirs ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q13" value="oui">
-        Oui
-    </label>
+        <h2>7. Est-ce que ta peau est généralement confortable et ne te pose pas beaucoup de problèmes ?</h2>
 
-    <label>
-        <input type="radio" name="q13" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q7" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q7" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
 
 
-    <h2>14. Est-ce que tu as souvent de petites imperfections qui apparaissent sur ton visage ?</h2>
+    <div class="question">
 
-    <label>
-        <input type="radio" name="q14" value="oui">
-        Oui
-    </label>
+        <h2>8. Est-ce que ta peau est rarement très sèche ou très brillante ?</h2>
 
-    <label>
-        <input type="radio" name="q14" value="non">
-        Non
-    </label>
+        <label>
+            <input type="radio" name="q8" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q8" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
+
+
+    <div class="question">
+
+        <h2>9. Est-ce que tu remarques de petites lignes sur ton visage ?</h2>
+
+        <label>
+            <input type="radio" name="q9" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q9" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
+
+
+    <div class="question">
+
+        <h2>10. Est-ce que tu trouves que ta peau est moins souple qu'avant ?</h2>
+
+        <label>
+            <input type="radio" name="q10" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q10" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
+
+
+    <div class="question">
+
+        <h2>11. Est-ce que ton visage devient facilement rouge ?</h2>
+
+        <label>
+            <input type="radio" name="q11" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q11" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
+
+
+    <div class="question">
+
+        <h2>12. Est-ce que ta peau réagit facilement à certains produits ?</h2>
+
+        <label>
+            <input type="radio" name="q12" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q12" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
+
+
+    <div class="question">
+
+        <h2>13. Est-ce que tu as souvent des boutons ou des points noirs ?</h2>
+
+        <label>
+            <input type="radio" name="q13" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q13" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
+
+
+    <div class="question">
+
+        <h2>14. Est-ce que tu as souvent de petites imperfections qui apparaissent sur ton visage ?</h2>
+
+        <label>
+            <input type="radio" name="q14" value="oui">
+            <span>Oui</span>
+        </label>
+
+        <label>
+            <input type="radio" name="q14" value="non">
+            <span>Non</span>
+        </label>
+
+    </div>
+
 
     <br><br>
 
-    <button>Découvrir mon type de peau</button>
-        
+    <button id="bouton-questionnaire">
+        Découvrir mon type de peau
+    </button>
 
 </form>
 
@@ -340,3 +399,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif ?>
 
 <?php endif ?>
+
+<a href="index.php">Retour à l'accueil</a>
